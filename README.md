@@ -1,14 +1,20 @@
 # Fashion-MNIST CNN Benchmark: Baseline vs. Deep Two-Layer CNN
 
-A progressive deep learning study evaluating single-layer vs. two-layer Convolutional Neural Network (CNN) architectures on the **Fashion-MNIST** dataset using **PyTorch**.
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+A clean, modular deep learning project evaluating single-layer vs. two-layer Convolutional Neural Network (CNN) architectures on the **Fashion-MNIST** dataset using **PyTorch**.
 
 ---
 
 ## 📌 Project Overview
 
-This repository demonstrates iterative computer vision engineering:
-1. **01 Baseline Model (`FashionCNN`)**: A minimalist single-layer convolutional network establishing a lightweight benchmark.
-2. **02 Improved Deep Model (`DeepFashionCNN`)**: An expanded dual-stage convolutional architecture extracting hierarchical spatial features and projecting them through a two-stage dense classification head.
+This repository demonstrates iterative computer vision engineering structured around a clean, modular Python codebase:
+- **`src/models.py`**: Clean, reusable PyTorch implementations of `FashionCNN` (baseline) and `DeepFashionCNN` (improved).
+- **`src/dataset.py`**: Robust data pipeline and loader utilities for downloading and normalizing Fashion-MNIST.
+- **`train.py`**: Production-ready command-line interface (CLI) to train, evaluate, and serialize model checkpoints.
+- **`notebooks/`**: Interactive walkthroughs with visualization grids for ground-truth vs. model predictions.
 
 ---
 
@@ -44,7 +50,7 @@ Input (1x28x28)
 
 ## 📊 Performance & Metrics Benchmark
 
-Both models were trained under identical conditions for fair comparison:
+Both models were trained under identical conditions for fair benchmarking:
 - **Optimizer:** Adam ($\alpha = 0.001$)
 - **Batch Size:** 64
 - **Epochs:** 5
@@ -93,24 +99,24 @@ cd MyFirstCNN
 
 ### 2. Install Dependencies
 ```bash
-pip install torch torchvision matplotlib numpy jupyter
+pip install -r requirements.txt
 ```
 
 ### 3. Run Experiments
 
-#### Option A: Jupyter Notebooks (Interactive)
+#### Option A: Headless CLI Training (`train.py`)
 ```bash
-jupyter notebook 01_baseline_1layer_cnn.ipynb
-jupyter notebook 02_improved_2layer_cnn.ipynb
+# Train baseline 1-layer CNN
+python train.py --model baseline --epochs 5 --batch-size 64
+
+# Train improved 2-layer deep CNN and save model checkpoint
+python train.py --model deep --epochs 5 --batch-size 64 --save-path deep_fashion_cnn.pth
 ```
 
-#### Option B: Standalone Python Scripts
+#### Option B: Interactive Jupyter Notebooks
 ```bash
-# Run baseline 1-layer CNN
-python 01_baseline_1layer_cnn.py
-
-# Run improved 2-layer deep CNN (saves deep_fashion_cnn.pth)
-python 02_improved_2layer_cnn.py
+jupyter notebook notebooks/01_baseline_1layer_cnn.ipynb
+jupyter notebook notebooks/02_improved_2layer_cnn.ipynb
 ```
 
 ---
@@ -120,9 +126,14 @@ python 02_improved_2layer_cnn.py
 ```
 MyFirstCNN/
 ├── .gitignore                      # Prevents committing datasets, .pth weights, cache
-├── 01_baseline_1layer_cnn.ipynb    # Interactive baseline 1-layer CNN notebook
-├── 01_baseline_1layer_cnn.py       # Standalone baseline 1-layer CNN script
-├── 02_improved_2layer_cnn.ipynb    # Interactive improved 2-layer CNN notebook
-├── 02_improved_2layer_cnn.py       # Standalone improved 2-layer CNN script
-└── README.md                       # Architectural comparison and benchmark documentation
+├── README.md                       # Comprehensive architectural comparison & benchmark
+├── requirements.txt                # Pinned dependencies
+├── train.py                        # Modular CLI training & evaluation script
+├── src/                            # Reusable core Python package
+│   ├── __init__.py                 # Package exports
+│   ├── dataset.py                  # Fashion-MNIST dataset loaders & class definitions
+│   └── models.py                   # PyTorch FashionCNN & DeepFashionCNN modules
+└── notebooks/                      # Interactive experimentation & visualization
+    ├── 01_baseline_1layer_cnn.ipynb
+    └── 02_improved_2layer_cnn.ipynb
 ```
